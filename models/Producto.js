@@ -19,13 +19,17 @@ const ProductoSchema = new mongoose.Schema(
             type: Array
         },
         tamano: {
-            type: String
+            type: Array
         },
         color: {
-            type: String
+            type: Array
         },
         precio: { 
             type: Number, 
+            required: true
+        },
+        enStock: {
+            type: Number,
             required: true
         }
     },

@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require('cors');
 
 const usuariosRoute = require("./routes/usuario")
 const productosRoute = require("./routes/producto")
@@ -14,6 +15,8 @@ const app = express();
 mongoose.connect(process.env.MONGO_URL)
         .then(() => console.log("Conexión a mongodb exitosa"))
         .catch((err) => console.log(err));
+
+app.use(cors());
 
 // Aceptar peticiones en formato json
 app.use(express.json());
