@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const cors = require('cors');
 
 const usuariosRoute = require("./routes/usuario")
 const productosRoute = require("./routes/producto")
@@ -16,7 +15,15 @@ mongoose.connect(process.env.MONGO_URL)
         .then(() => console.log("Conexión a mongodb exitosa"))
         .catch((err) => console.log(err));
 
-app.use(cors());
+// configuracion de cabeceras para aceptar las peticiones AJAX desde cualquier origen
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+ 
+    next();
+});
 
 // Aceptar peticiones en formato json
 app.use(express.json());
